@@ -1,0 +1,15 @@
+<div class="row content">
+    <div class="col-6">
+      <h2>Baked by {{ recordToShow.baker }}</h2>
+      <img src="{{recordToShow.imageUrl}}" alt="cake_image">
+      <br>
+      <button class="btn btn-secondary btn-sm" (click)="triggerEvent()">Close</button>
+    </div>
+    <div class="col-6">
+        <h3>Average Rating: {{ calcRatingAvg(recordToShow.comments) }}</h3>
+        <div *ngFor="let comment of recordToShow.comments">
+          <p>- {{ comment.comment }} (Rated {{ comment.rate }})</p>
+          <hr>
+        </div>
+    </div>
+</div>

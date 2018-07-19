@@ -1,0 +1,44 @@
+<div class="container-fluid">
+  <h2 class="text-center">Rate my cakes</h2>
+  <ul class="text-danger">
+    <li *ngFor="let err of genErrors">{{ err }}</li>
+  </ul>
+  <div class="row">
+    <!-- Cake list and Comment Area -->
+    <div class="col-7 ahfList">
+      <div *ngFor="let cake of cakes" class="row">
+        <div class="col-6">
+          <img (click)="selectedRec = cake" [src]="cake.imageUrl" alt="cake_image">
+        </div>
+        <div class="col-6">
+          <form (submit)="addRating(ratingFormData.value, cake._id)" #ratingFormData="ngForm">
+            <div *ngIf="ratingErrors && ratingErrors['errors']['rate']" class="text-danger">{{ ratingErrors['errors']['rate']['message'] }}</div>
+            <input class="col-11 field" type="number" name="rate" min="1" max="5" placeholder="Rating" ngModel>
+            
+            <div *ngIf="ratingErrors && ratingErrors['errors']['comment']" class="text-danger">{{ ratingErrors['errors']['comment']['message'] }}</div>
+            <input class="col-11 field" type="text" name="comment" placeholder="Comment" ngModel>
+            
+            <button class="btn btn-primary" type="submit">Rate</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Add Cake Area -->
+    <div class="col-4 card margin10">
+      <p>Submit a cake to be rated</p>
+      <form (submit)="createSrvc(cake)">
+        <div *ngIf="createErrors && createErrors['errors']['baker']" class="text-danger">{{ createErrors['errors']['baker']['message'] }}</div>
+        <input class="col-11 field" type="text" name="baker" id="baker" placeholder="Baker Name" [(ngModel)]="cake.baker">
+
+        <div *ngIf="createErrors && createErrors['errors']['imageUrl']" class="text-danger">{{ createErrors['errors']['imageUrl']['message'] }}</div>
+        <input class="col-11 field" type="url" name="imageUrl" id="imageUrl" placeholder="Image URL" [(ngModel)]="cake.imageUrl">
+
+        <button class="btn btn-secondary field" type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+  <!-- Cake Detail Component Area -->
+  <div class="row">
+    <app-cake class="col-12" *ngIf="selectedRec" [recordToShow]="selectedRec" (eventEmitter)="eventFromChild()"></app-cake>
+  </div>
+</div>

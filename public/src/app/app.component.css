@@ -1,0 +1,16 @@
+.field {
+    margin-bottom: 5px;
+}
+
+.margin10 {
+    margin: 10px;
+}
+
+img {
+    max-height: 170px;
+}
+
+.ahfList {
+    max-height: 400px;
+    overflow: scroll;
+}
